@@ -107,7 +107,7 @@ CREATE TABLE bookings
 DROP TABLE IF EXISTS help_tickets;
 CREATE TABLE help_tickets (
     ticket_id     INT AUTO_INCREMENT PRIMARY KEY,
-    ticket_type   VARCHAR(50) NOT NULL,
+    ticket_type   ENUM ('booking_issue', 'access', 'space', 'account', 'report', 'other') NOT NULL,
     title         VARCHAR(100) NOT NULL,
     description   TEXT,
     created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
