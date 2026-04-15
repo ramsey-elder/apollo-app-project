@@ -1,0 +1,21 @@
+INSERT INTO facility_managers (manager_id, f_name, l_name, email, phone, building_id) VALUES
+(1,  'Margaret', 'Collins',    'm.collins@northeastern.edu',    '(617) 555-0101', 1),
+(2,  'David',    'Reyes',      'd.reyes@northeastern.edu',      '(617) 555-0102', 2),
+(3,  'Sandra',   'Park',       's.park@northeastern.edu',       '(617) 555-0103', 3),
+(4,  'James',    'O''Brien',   'j.obrien@northeastern.edu',     '(617) 555-0104', 4),
+(5,  'Linda',    'Nguyen',     'l.nguyen@northeastern.edu',     '(617) 555-0105', 5),
+(6,  'Robert',   'Walsh',      'r.walsh@northeastern.edu',      '(617) 555-0106', 6),
+(7,  'Patricia', 'Kim',        'p.kim@northeastern.edu',        '(617) 555-0107', 7),
+(8,  'Charles',  'Morales',    'c.morales@northeastern.edu',    '(617) 555-0108', 8),
+(9,  'Barbara',  'Sullivan',   'b.sullivan@northeastern.edu',   '(617) 555-0109', 9),
+(10, 'Thomas',   'Fitzgerald', 't.fitzgerald@northeastern.edu', '(617) 555-0110', 10),
+(11, 'Karen',    'Ramirez',    'k.ramirez@northeastern.edu',    '(617) 555-0111', 11),
+(12, 'Steven',   'Chen',       's.chen@northeastern.edu',       '(617) 555-0112', 12),
+(13, 'Nancy',    'Patel',      'n.patel@northeastern.edu',      '(617) 555-0113', 13),
+(14, 'Edward',   'Doyle',      'e.doyle@northeastern.edu',      '(617) 555-0114', 14),
+(15, 'Dorothy',  'Robinson',   'd.robinson@northeastern.edu',   '(617) 555-0115', 15),
+(16, 'Kevin',    'Murray',     'k.murray@northeastern.edu',     '(617) 555-0116', 16),
+(17, 'Helen',    'Brady',      'h.brady@northeastern.edu',      '(617) 555-0117', 17),
+(18, 'Brian',    'Santos',     'b.santos@northeastern.edu',     '(617) 555-0118', 18),
+(19, 'Sharon',   'McCarthy',   's.mccarthy@northeastern.edu',   '(617) 555-0119', 19)
+;
