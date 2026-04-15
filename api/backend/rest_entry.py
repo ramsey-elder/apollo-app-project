@@ -29,7 +29,7 @@ def create_app():
     app.config["MYSQL_DATABASE_DB"] = os.getenv("DB_NAME").strip()
 
     # Register the cleanup hook for the database connection.
-    app.logger.info("create_app(): initializing database connection")
+    app.logger.info("create_apkp(): initializing database connection")
     init_db(app)
 
     # Register the routes from each Blueprint with the app object
