@@ -95,7 +95,6 @@ CREATE TABLE bookings
     status     ENUM ('active', 'cancelled', 'completed', 'no_show') NOT NULL DEFAULT 'active',
     time_start DATETIME                                             NOT NULL,
     time_end   DATETIME                                             NOT NULL,
-    approved   TINYINT(1)                                           NOT NULL DEFAULT 0,
     space_id   INT                                                  NOT NULL,
     club_id    INT,
     creator_id INT                                                  NOT NULL,
