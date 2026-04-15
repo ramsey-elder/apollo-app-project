@@ -11,7 +11,7 @@ CREATE TABLE users
     f_name    VARCHAR(50)                                           NOT NULL,
     l_name    VARCHAR(50)                                           NOT NULL,
     email     VARCHAR(100)                                          NOT NULL UNIQUE,
-    user_type ENUM ('student', 'club_rep', 'admin', 'data_analyst') NOT NULL
+    user_type ENUM ('student', 'admin', 'data_analyst') NOT NULL
 );
 
 DROP TABLE IF EXISTS buildings;
