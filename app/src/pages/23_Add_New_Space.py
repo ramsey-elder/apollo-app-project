@@ -146,6 +146,3 @@ with st.form(f"add_space_form_{st.session_state.form_key_counter}"):
 
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_space_name)
-
-if st.button("Return to Admin Home"):
-    st.switch_page("pages/20_Admin_Home.py")

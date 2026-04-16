@@ -73,10 +73,13 @@ def data_analyst_home_nav():
 # ---- Role: administrator ----------------------------------------------------
 
 def admin_home_nav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
+    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin Home", icon="🖥️")
 
 def user_directory_nav():
     st.sidebar.page_link("pages/22_Users_Directory.py", label="User Directory", icon="👤")
+
+def space_directory_nav():
+    st.sidebar.page_link("pages/24_Spaces_Directory.py", label="Space Directory", icon="🏢")
 
 def add_new_space_nav():
     st.sidebar.page_link("pages/23_Add_New_Space.py", label="Add New Space", icon="➕")
@@ -122,6 +125,7 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "administrator":
             admin_home_nav()
             user_directory_nav()
+            space_directory_nav()
             add_new_space_nav()
 
     # About link appears at the bottom for all roles

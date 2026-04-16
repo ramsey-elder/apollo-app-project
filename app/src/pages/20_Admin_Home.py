@@ -8,13 +8,18 @@ st.set_page_config(layout='wide')
 
 SideBarLinks()
 
-st.title('System Admin Home Page')
+st.title(f"Welcome System Admin, {st.session_state['first_name']}.")
 st.write('### What would you like to do today?')
 
 if st.button('View User Directory',
              type='primary',
              use_container_width=True):
     st.switch_page('pages/22_Users_Directory.py')
+
+if st.button('View Space Directory',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/24_Spaces_Directory.py')
 
 if st.button('Add New Space',
              type='primary',

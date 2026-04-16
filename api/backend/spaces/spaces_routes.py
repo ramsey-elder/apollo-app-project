@@ -1,6 +1,22 @@
 from flask import Blueprint, jsonify, request, current_app
 from backend.db_connection import get_db
 from mysql.connector import Error
+from datetime import timedelta
+
+
+def _format_time(val):
+    if isinstance(val, timedelta):
+        total = int(val.total_seconds())
+        h, rem = divmod(total, 3600)
+        m, s = divmod(rem, 60)
+        return f"{h:02d}:{m:02d}:{s:02d}"
+    return val
+
+
+def _serialize_space(space):
+    space["availability_start"] = _format_time(space.get("availability_start"))
+    space["availability_end"] = _format_time(space.get("availability_end"))
+    return space
 
 spaces = Blueprint("spaces", __name__)
 
@@ -43,7 +59,7 @@ def get_all_spaces():
             params.append(permissions)
 
         cursor.execute(query, params)
-        space_list = cursor.fetchall()
+        space_list = [_serialize_space(s) for s in cursor.fetchall()]
 
         current_app.logger.info(f"Retrieved {len(space_list)} spaces")
         return jsonify(space_list), 200
@@ -76,7 +92,7 @@ def get_space(space_id):
         cursor.execute("SELECT * FROM accommodations WHERE space_id = %s", (space_id,))
         space["accommodations"] = cursor.fetchone()
 
-        return jsonify(space), 200
+        return jsonify(_serialize_space(space)), 200
     except Error as e:
         current_app.logger.error(f"Database error in get_space: {e}")
         return jsonify({"error": str(e)}), 500
