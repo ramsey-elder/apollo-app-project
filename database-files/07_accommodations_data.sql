@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO accommodations (space_id, whiteboard, screen, desks, sound_system, tables_avail, camera) VALUES
 (1,  1, 0, 1, 0, 0, 0),
 (2,  1, 0, 1, 0, 0, 0),

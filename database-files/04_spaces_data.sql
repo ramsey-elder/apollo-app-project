@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO spaces (space_id, permissions, availability_start, availability_end, space_type, room_name, size, creator_id, building_id) VALUES
 (1,  'all',  '08:00:00', '22:00:00', 'room', 'Study Room LL10',      'small',  1, 1),
 (2,  'all',  '08:00:00', '22:00:00', 'room', 'Study Room 101',       'small',  2, 1),

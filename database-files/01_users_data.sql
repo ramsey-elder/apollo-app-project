@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 insert into users (user_id, f_name, l_name, email, user_type) values (1, 'Joshua', 'Possa', 'jpossa0@northeastern.edu', 'admin');
 insert into users (user_id, f_name, l_name, email, user_type) values (2, 'Aurelea', 'Skelcher', 'askelcher1@northeastern.edu', 'admin');
 insert into users (user_id, f_name, l_name, email, user_type) values (3, 'Candi', 'Phizaclea', 'cphizaclea2@northeastern.edu', 'student');

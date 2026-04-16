@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO bookings (booking_id, status, time_start, time_end, space_id, club_id, creator_id) VALUES
 (1,  'completed', '2026-03-25 10:00:00', '2026-03-25 12:00:00', 11, 1,  3),
 (2,  'completed', '2026-03-26 14:00:00', '2026-03-26 17:00:00', 76, 9,  44),

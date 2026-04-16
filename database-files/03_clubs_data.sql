@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO clubs (club_id, club_name, description, email, suspended) VALUES (1, 'Northeastern Dance Club', 'Student-run dance organization featuring multiple styles including hip-hop, contemporary, and K-pop', 'nudanceclub@northeastern.edu', 0);
 INSERT INTO clubs (club_id, club_name, description, email, suspended) VALUES (2, 'Club Squash', 'Competitive and recreational squash team for all skill levels', 'clubsquash@northeastern.edu', 1);
 INSERT INTO clubs (club_id, club_name, description, email, suspended) VALUES (3, 'AI Club', 'Explores artificial intelligence topics through workshops, projects, and speaker events', 'aiclub@northeastern.edu', 1);

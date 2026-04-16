@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO facility_managers (manager_id, f_name, l_name, email, phone, building_id) VALUES
 (1,  'Margaret', 'Collins',    'm.collins@northeastern.edu',    '(617) 555-0101', 1),
 (2,  'David',    'Reyes',      'd.reyes@northeastern.edu',      '(617) 555-0102', 2),

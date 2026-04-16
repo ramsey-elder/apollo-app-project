@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO booking_participants (booking_id, user_id, managing) VALUES
 (1,  3,   1),
 (1,  11,  0),

@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO help_tickets (ticket_id, ticket_type, title, description, created_at, closed_at, admin_id, creator_id) VALUES
 (1,  'booking_issue', 'Cancel button does nothing',              'Tried to cancel my booking but nothing happens when I click it.', '2026-01-05 10:23:00', '2026-01-07 09:00:00', 1, 3),
 (2,  'access',        'Club spaces showing access denied',       'I am a club rep but still get denied when booking club-only rooms.', '2026-01-08 14:15:00', '2026-01-10 11:00:00', 2, 4),

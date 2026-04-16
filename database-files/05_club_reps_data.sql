@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO club_reps (club_id, user_id) VALUES (1, 3);
 INSERT INTO club_reps (club_id, user_id) VALUES (1, 7);
 INSERT INTO club_reps (club_id, user_id) VALUES (4, 4);

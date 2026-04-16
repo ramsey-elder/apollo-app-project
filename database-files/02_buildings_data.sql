@@ -1,3 +1,5 @@
+USE apollo_booking;
+
 INSERT INTO buildings (building_id, building_name, street, city, state, zip, creator_id) VALUES
 (1, 'Snell Library', '360 Huntington Ave', 'Boston', 'MA', '02115', 1),
 (2, 'Curry Student Center', '346 Huntington Ave', 'Boston', 'MA', '02115', 2),
