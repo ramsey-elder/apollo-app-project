@@ -15,11 +15,11 @@ def about_page_nav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
 
-# ---- Role: pol_strat_advisor ------------------------------------------------
+# ---- Role: student ------------------------------------------------
 
-def pol_strat_home_nav():
+def student_home_nav():
     st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
+        "pages/00_Student_Home.py", label="Student Home", icon="👤"
     )
 
 
@@ -33,11 +33,11 @@ def map_demo_nav():
     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
 
 
-# ---- Role: usaid_worker -----------------------------------------------------
+# ---- Role: club_rep -----------------------------------------------------
 
-def usaid_worker_home_nav():
+def club_rep_home_nav():
     st.sidebar.page_link(
-        "pages/10_USAID_Worker_Home.py", label="USAID Worker Home", icon="🏠"
+        "pages/10_Club_Rep_Home.py", label="Club Rep Home", icon="🏠"
     )
 
 
@@ -64,17 +64,22 @@ def classification_nav():
         "pages/13_Classification.py", label="Classification Demo", icon="🌺"
     )
 
+# ---- Role: data_analyst ----------------------------------------------------
+
+def data_analyst_home_nav():
+    st.sidebar.page_link("pages/40_Data_Analyst_Home.py", label="Data Analyst Home", icon="🖥️")
+
 
 # ---- Role: administrator ----------------------------------------------------
 
 def admin_home_nav():
     st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
 
+def user_directory_nav():
+    st.sidebar.page_link("pages/22_Users_Directory.py", label="User Directory", icon="👤")
 
-def ml_model_mgmt_nav():
-    st.sidebar.page_link(
-        "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
-    )
+def add_new_space_nav():
+    st.sidebar.page_link("pages/23_Add_New_Space.py", label="Add New Space", icon="➕")
 
 
 # ---- Sidebar assembly -------------------------------------------------------
@@ -86,7 +91,7 @@ def SideBarLinks(show_home=False):
     """
 
     # Logo appears at the top of the sidebar on every page
-    st.sidebar.image("assets/logo.png", width=150)
+    st.sidebar.image("assets/logo.png", width=275)
 
     # If no one is logged in, send them to the Home (login) page
     if "authenticated" not in st.session_state:
@@ -98,22 +103,26 @@ def SideBarLinks(show_home=False):
 
     if st.session_state["authenticated"]:
 
-        if st.session_state["role"] == "pol_strat_advisor":
-            pol_strat_home_nav()
+        if st.session_state["role"] == "student":
+            student_home_nav()
             world_bank_viz_nav()
             map_demo_nav()
 
-        if st.session_state["role"] == "usaid_worker":
-            usaid_worker_home_nav()
+        if st.session_state["role"] == "club_rep":
+            club_rep_home_nav()
             ngo_directory_nav()
             add_ngo_nav()
             prediction_nav()
             api_test_nav()
             classification_nav()
 
+        if st.session_state["role"] == "data_analyst":
+            data_analyst_home_nav()
+
         if st.session_state["role"] == "administrator":
             admin_home_nav()
-            ml_model_mgmt_nav()
+            user_directory_nav()
+            add_new_space_nav()
 
     # About link appears at the bottom for all roles
     about_page_nav()

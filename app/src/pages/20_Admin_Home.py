@@ -11,7 +11,17 @@ SideBarLinks()
 st.title('System Admin Home Page')
 st.write('### What would you like to do today?')
 
-if st.button('Update ML Models',
+if st.button('View User Directory',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/21_ML_Model_Mgmt.py')
+    st.switch_page('pages/22_Users_Directory.py')
+
+if st.button('Add New Space',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/23_Add_New_Space.py')
+
+# if st.button('Update ML Models',
+#              type='primary',
+#              use_container_width=True):
+#     st.switch_page('pages/21_ML_Model_Mgmt.py')

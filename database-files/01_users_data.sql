@@ -1,10 +1,10 @@
 USE apollo_booking;
 
+insert into users (user_id, f_name, l_name, email, user_type) values (2, 'Adam', 'Skelcher', 'askelcher1@northeastern.edu', 'admin');
+insert into users (user_id, f_name, l_name, email, user_type) values (3, 'Maddie', 'Phizaclea', 'mphizaclea2@northeastern.edu', 'student');
+insert into users (user_id, f_name, l_name, email, user_type) values (4, 'Jason', 'Summerill', 'jsummerill3@northeastern.edu', 'student');
+insert into users (user_id, f_name, l_name, email, user_type) values (5, 'Michael', 'Smooth', 'msmooth4@northeastern.edu', 'data_analyst');
 insert into users (user_id, f_name, l_name, email, user_type) values (1, 'Joshua', 'Possa', 'jpossa0@northeastern.edu', 'admin');
-insert into users (user_id, f_name, l_name, email, user_type) values (2, 'Aurelea', 'Skelcher', 'askelcher1@northeastern.edu', 'admin');
-insert into users (user_id, f_name, l_name, email, user_type) values (3, 'Candi', 'Phizaclea', 'cphizaclea2@northeastern.edu', 'student');
-insert into users (user_id, f_name, l_name, email, user_type) values (4, 'Ninon', 'Summerill', 'nsummerill3@northeastern.edu', 'student');
-insert into users (user_id, f_name, l_name, email, user_type) values (5, 'Sherwin', 'Smooth', 'ssmooth4@northeastern.edu', 'data_analyst');
 insert into users (user_id, f_name, l_name, email, user_type) values (6, 'Lester', 'Hill', 'lhill5@northeastern.edu', 'student');
 insert into users (user_id, f_name, l_name, email, user_type) values (7, 'Lind', 'De Angelis', 'ldeangelis6@northeastern.edu', 'student');
 insert into users (user_id, f_name, l_name, email, user_type) values (8, 'Edyth', 'Mundall', 'emundall7@northeastern.edu', 'student');
