@@ -11,6 +11,7 @@ from backend.bookings.bookings_routes import bookings
 from backend.spaces.spaces_routes import spaces
 from backend.buildings.buildings_routes import buildings
 from backend.facility_managers.facility_managers_routes import facility_managers
+from backend.clubs.club_routes import clubs
 
 
 
@@ -48,5 +49,6 @@ def create_app():
     app.register_blueprint(spaces, url_prefix="/spaces")
     app.register_blueprint(buildings, url_prefix="/buildings")
     app.register_blueprint(facility_managers, url_prefix="/facility_managers")
+    app.register_blueprint(clubs, url_prefix="/clubs")
     
     return app

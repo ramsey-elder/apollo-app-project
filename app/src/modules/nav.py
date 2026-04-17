@@ -84,6 +84,8 @@ def space_directory_nav():
 def add_new_space_nav():
     st.sidebar.page_link("pages/23_Add_New_Space.py", label="Add New Space", icon="➕")
 
+def booking_directory_nav():
+    st.sidebar.page_link("pages/25_Bookings_Directory.py", label="Booking Directory", icon="📅")
 
 # ---- Sidebar assembly -------------------------------------------------------
 
@@ -127,6 +129,8 @@ def SideBarLinks(show_home=False):
             user_directory_nav()
             space_directory_nav()
             add_new_space_nav()
+            booking_directory_nav()
+
 
     # About link appears at the bottom for all roles
     about_page_nav()

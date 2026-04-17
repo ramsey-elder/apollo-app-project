@@ -26,6 +26,11 @@ if st.button('Add New Space',
              use_container_width=True):
     st.switch_page('pages/23_Add_New_Space.py')
 
+if st.button('View Booking Directory',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/25_Bookings_Directory.py')
+
 # if st.button('Update ML Models',
 #              type='primary',
 #              use_container_width=True):
