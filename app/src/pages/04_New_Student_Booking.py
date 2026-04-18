@@ -93,9 +93,6 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
         end_date = st.date_input("End Date *", value=datetime.date.today())
         end_time = st.time_input("End Time *", value=datetime.time(10, 0))
 
-    # Optional club association
-    club_names = ["— None —"] + list(club_options.values())
-    selected_club_name = st.selectbox("Club (optional)", options=club_names)
 
     submitted = st.form_submit_button("Create Booking")
 
@@ -118,10 +115,6 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
                     "space_id": space_id,
                     "creator_id": creator_id,
                 }
-
-                if selected_club_name != "— None —":
-                    club_id = next(k for k, v in club_options.items() if v == selected_club_name)
-                    booking_data["club_id"] = club_id
 
                 try:
                     response = requests.post(BOOKINGS_API_URL, json=booking_data)

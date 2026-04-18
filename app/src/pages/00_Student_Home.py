@@ -15,7 +15,7 @@ st.write('### What would you like to do today?')
 if st.button('Create a booking',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/04_New_Booking.py')
+    st.switch_page('pages/04_New_Student_Booking.py')
 
 if st.button('Submit Help Ticket',
              type='primary',

@@ -14,6 +14,12 @@ def home_nav():
 def about_page_nav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
+def help_ticket_nav():
+    st.sidebar.page_link(
+        "pages/03_New_Help_Ticket.py", label="Submit Help Ticket", icon="🆘"
+    )
+
+
 
 # ---- Role: student ------------------------------------------------
 
@@ -24,12 +30,7 @@ def student_home_nav():
 
 def student_booking_nav():
     st.sidebar.page_link(
-        "pages/04_New_Booking.py", label="Create Booking", icon="📅"
-    )
-
-def student_help_ticket_nav():
-    st.sidebar.page_link(
-        "pages/03_New_Help_Ticket.py", label="Submit Help Ticket", icon="🆘"
+        "pages/04_New_Student_Booking.py", label="Create Booking", icon="📅"
     )
 
 
@@ -51,6 +52,12 @@ def club_rep_home_nav():
     st.sidebar.page_link(
         "pages/10_Club_Rep_Home.py", label="Club Rep Home", icon="🏠"
     )
+
+def club_booking_nav():
+    st.sidebar.page_link(
+        "pages/17_New_Club_Booking.py", label="Create Booking", icon="📅"
+    )
+
 
 
 def ngo_directory_nav():
@@ -75,6 +82,7 @@ def classification_nav():
     st.sidebar.page_link(
         "pages/13_Classification.py", label="Classification Demo", icon="🌺"
     )
+
 
 # ---- Role: data_analyst ----------------------------------------------------
 
@@ -123,17 +131,19 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "student":
             student_home_nav()
             student_booking_nav()
-            student_help_ticket_nav()
+            help_ticket_nav()
             # world_bank_viz_nav()
             # map_demo_nav()
 
         if st.session_state["role"] == "club_rep":
             club_rep_home_nav()
+            club_booking_nav()
             ngo_directory_nav()
             add_ngo_nav()
             prediction_nav()
             api_test_nav()
             classification_nav()
+            help_ticket_nav()
 
         if st.session_state["role"] == "data_analyst":
             data_analyst_home_nav()
