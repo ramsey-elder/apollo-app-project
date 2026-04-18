@@ -9,12 +9,11 @@ st.write("# About this App")
 
 st.markdown(
     """
-    This is a demo app for Data and Software in International Government and Politics Dialogue 2025 Project Course.  
+    This is a demo app for the CS3200 Intro to Database course at Northeastern University.
 
-    The goal of this demo is to provide information on the tech stack 
-    being used as well as demo some of the features of the various platforms. 
+    The focus of this project is to demonstrate how to build a full-stack application that interacts with a MySQL database, using Streamlit for the frontend and Flask for the backend API.
 
-    Stay tuned for more information and features to come!
+    This project was developed by ___.
     """
 )
 
