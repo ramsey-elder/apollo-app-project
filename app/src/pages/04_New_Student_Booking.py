@@ -9,15 +9,17 @@ SideBarLinks()
 
 st.title("Create New Booking")
 
-# Initialize session state
-if "show_success_modal" not in st.session_state:
-    st.session_state.show_success_modal = False
-if "success_booking_id" not in st.session_state:
-    st.session_state.success_booking_id = None
-if "reset_form" not in st.session_state:
-    st.session_state.reset_form = False
-if "form_key_counter" not in st.session_state:
-    st.session_state.form_key_counter = 0
+# Reset form whenever navigating to this page from another page
+if st.session_state.get("_last_page") != "04_student_booking":
+    st.session_state["_last_page"] = "04_student_booking"
+    st.session_state["sb_form_key_counter"] = st.session_state.get("sb_form_key_counter", -1) + 1
+
+if "sb_show_success_modal" not in st.session_state:
+    st.session_state.sb_show_success_modal = False
+if "sb_success_booking_id" not in st.session_state:
+    st.session_state.sb_success_booking_id = None
+if "sb_reset_form" not in st.session_state:
+    st.session_state.sb_reset_form = False
 
 
 @st.dialog("Success")
@@ -28,21 +30,21 @@ def show_success_dialog(booking_id):
 
     with col1:
         if st.button("Return to Home", type="primary", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_booking_id = None
+            st.session_state.sb_show_success_modal = False
+            st.session_state.sb_success_booking_id = None
             st.switch_page("pages/00_Student_Home.py")
 
     with col2:
-        if st.button("Create Another Booking", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_booking_id = None
-            st.session_state.reset_form = True
+        if st.button("Create Another Booking", type="primary", use_container_width=True):
+            st.session_state.sb_show_success_modal = False
+            st.session_state.sb_success_booking_id = None
+            st.session_state.sb_reset_form = True
             st.rerun()
 
 
-if st.session_state.reset_form:
-    st.session_state.form_key_counter += 1
-    st.session_state.reset_form = False
+if st.session_state.sb_reset_form:
+    st.session_state.sb_form_key_counter += 1
+    st.session_state.sb_reset_form = False
 
 # Fetch spaces from API
 try:
@@ -60,20 +62,9 @@ except requests.exceptions.RequestException:
     space_options = {}
     st.warning("Could not connect to the API to load spaces.")
 
-# Fetch clubs from API
-try:
-    clubs_response = requests.get("http://web-api:4000/clubs")
-    if clubs_response.status_code == 200:
-        clubs_data = clubs_response.json()
-        club_options = {c["club_id"]: c["club_name"] for c in clubs_data}
-    else:
-        club_options = {}
-except requests.exceptions.RequestException:
-    club_options = {}
-
 BOOKINGS_API_URL = "http://web-api:4000/bookings"
 
-with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
+with st.form(f"new_booking_form_{st.session_state.sb_form_key_counter}"):
     st.subheader("Booking Details")
 
     if space_options:
@@ -92,7 +83,6 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
     with col2:
         end_date = st.date_input("End Date *", value=datetime.date.today())
         end_time = st.time_input("End Time *", value=datetime.time(10, 0))
-
 
     submitted = st.form_submit_button("Create Booking", type="primary")
 
@@ -120,8 +110,8 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
                     response = requests.post(BOOKINGS_API_URL, json=booking_data)
 
                     if response.status_code == 201:
-                        st.session_state.show_success_modal = True
-                        st.session_state.success_booking_id = response.json().get("booking_id")
+                        st.session_state.sb_show_success_modal = True
+                        st.session_state.sb_success_booking_id = response.json().get("booking_id")
                         st.rerun()
                     else:
                         st.error(
@@ -132,5 +122,6 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
                     st.error(f"Error connecting to the API: {str(e)}")
                     st.info("Please ensure the API server is running.")
 
-if st.session_state.show_success_modal:
-    show_success_dialog(st.session_state.success_booking_id)
+if st.session_state.sb_show_success_modal:
+    st.session_state.sb_show_success_modal = False
+    show_success_dialog(st.session_state.sb_success_booking_id)

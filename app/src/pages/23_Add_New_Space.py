@@ -9,15 +9,17 @@ SideBarLinks()
 
 st.title("Add New Bookable Space")
 
-# Initialize session state
-if "show_success_modal" not in st.session_state:
-    st.session_state.show_success_modal = False
-if "success_space_name" not in st.session_state:
-    st.session_state.success_space_name = ""
-if "reset_form" not in st.session_state:
-    st.session_state.reset_form = False
-if "form_key_counter" not in st.session_state:
-    st.session_state.form_key_counter = 0
+# Reset form whenever navigating to this page from another page
+if st.session_state.get("_last_page") != "23_add_space":
+    st.session_state["_last_page"] = "23_add_space"
+    st.session_state["sp_form_key_counter"] = st.session_state.get("sp_form_key_counter", -1) + 1
+
+if "sp_show_success_modal" not in st.session_state:
+    st.session_state.sp_show_success_modal = False
+if "sp_success_space_name" not in st.session_state:
+    st.session_state.sp_success_space_name = ""
+if "sp_reset_form" not in st.session_state:
+    st.session_state.sp_reset_form = False
 
 
 @st.dialog("Success")
@@ -27,22 +29,22 @@ def show_success_dialog(space_name):
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("Return to Admin Home", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_space_name = ""
+        if st.button("Return to Admin Home", type="primary", use_container_width=True):
+            st.session_state.sp_show_success_modal = False
+            st.session_state.sp_success_space_name = ""
             st.switch_page("pages/20_Admin_Home.py")
 
     with col2:
-        if st.button("Add Another Space", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_space_name = ""
-            st.session_state.reset_form = True
+        if st.button("Add Another Space", type="primary", use_container_width=True):
+            st.session_state.sp_show_success_modal = False
+            st.session_state.sp_success_space_name = ""
+            st.session_state.sp_reset_form = True
             st.rerun()
 
 
-if st.session_state.reset_form:
-    st.session_state.form_key_counter += 1
-    st.session_state.reset_form = False
+if st.session_state.sp_reset_form:
+    st.session_state.sp_form_key_counter += 1
+    st.session_state.sp_reset_form = False
 
 # Fetch buildings from API
 try:
@@ -59,7 +61,7 @@ except requests.exceptions.RequestException:
 
 SPACES_API_URL = "http://web-api:4000/spaces"
 
-with st.form(f"add_space_form_{st.session_state.form_key_counter}"):
+with st.form(f"add_space_form_{st.session_state.sp_form_key_counter}"):
     st.subheader("Space Information")
 
     room_name = st.text_input("Room Name *")
@@ -132,8 +134,8 @@ with st.form(f"add_space_form_{st.session_state.form_key_counter}"):
                 response = requests.post(SPACES_API_URL, json=space_data)
 
                 if response.status_code == 201:
-                    st.session_state.show_success_modal = True
-                    st.session_state.success_space_name = room_name
+                    st.session_state.sp_show_success_modal = True
+                    st.session_state.sp_success_space_name = room_name
                     st.rerun()
                 else:
                     st.error(
@@ -144,5 +146,6 @@ with st.form(f"add_space_form_{st.session_state.form_key_counter}"):
                 st.error(f"Error connecting to the API: {str(e)}")
                 st.info("Please ensure the API server is running")
 
-if st.session_state.show_success_modal:
-    show_success_dialog(st.session_state.success_space_name)
+if st.session_state.sp_show_success_modal:
+    st.session_state.sp_show_success_modal = False
+    show_success_dialog(st.session_state.sp_success_space_name)
