@@ -1,3 +1,4 @@
+import datetime
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
@@ -80,9 +81,9 @@ try:
             manager = next((p for p in participants if p.get("managing")), None)
             non_managers = [p for p in participants if not p.get("managing")]
 
-            left_col, right_col = st.columns(2)
+            info_col, people_col, action_col = st.columns(3)
 
-            with left_col:
+            with info_col:
                 st.write("**Booking Details**")
                 st.write(f"**Booking ID:** {b['booking_id']}")
                 st.write(f"**Space:** {b['room_name']} ({b['space_type'].replace('_', ' ').title()})")
@@ -91,7 +92,7 @@ try:
                 st.write(f"**Start:** {b['time_start']}")
                 st.write(f"**End:** {b['time_end']}")
 
-            with right_col:
+            with people_col:
                 st.write("**Managing User**")
                 if manager:
                     st.write(f"**Name:** {manager['f_name']} {manager['l_name']}")
@@ -107,9 +108,52 @@ try:
                 else:
                     st.write("No additional participants.")
 
+            with action_col:
+                if b["status"] == "active":
+                    st.write("**Actions**")
+
+                    if st.button("Cancel Reservation", key=f"cancel_{b['booking_id']}", type="secondary"):
+                        cancel_resp = requests.put(
+                            f"{BOOKINGS_URL}/{b['booking_id']}",
+                            json={"status": "cancelled"},
+                        )
+                        if cancel_resp.status_code == 200:
+                            st.success("Reservation cancelled.")
+                            st.rerun()
+                        else:
+                            st.error("Failed to cancel reservation.")
+
+                    st.write("")
+                    with st.form(key=f"reschedule_{b['booking_id']}"):
+                        st.write("**Reschedule**")
+                        new_start_date = st.date_input("New Start Date", value=datetime.date.today())
+                        new_start_time = st.time_input("New Start Time", value=datetime.time(9, 0))
+                        new_end_date = st.date_input("New End Date", value=datetime.date.today())
+                        new_end_time = st.time_input("New End Time", value=datetime.time(10, 0))
+                        if st.form_submit_button("Update Time"):
+                            ts = datetime.datetime.combine(new_start_date, new_start_time)
+                            te = datetime.datetime.combine(new_end_date, new_end_time)
+                            if te <= ts:
+                                st.error("End time must be after start time.")
+                            else:
+                                upd = requests.put(
+                                    f"{BOOKINGS_URL}/{b['booking_id']}",
+                                    json={
+                                        "time_start": ts.strftime("%Y-%m-%d %H:%M:%S"),
+                                        "time_end": te.strftime("%Y-%m-%d %H:%M:%S"),
+                                    },
+                                )
+                                if upd.status_code == 200:
+                                    st.success("Time updated.")
+                                    st.rerun()
+                                else:
+                                    st.error("Failed to update.")
+                else:
+                    st.write(f"*This reservation is {status_label.lower()} and cannot be modified.*")
+
     st.divider()
     if st.button("Create New Booking", type="primary"):
-        st.switch_page("pages/04_New_Booking.py")
+        st.switch_page("pages/17_New_Club_Booking.py")
 
 except requests.exceptions.RequestException as e:
     st.error(f"Error connecting to the API: {str(e)}")
