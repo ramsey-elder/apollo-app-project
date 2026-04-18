@@ -103,7 +103,7 @@ with st.form(f"add_space_form_{st.session_state.form_key_counter}"):
         format_func=lambda x: "— Select —" if x == "" else x.title(),
     )
 
-    submitted = st.form_submit_button("Add Space")
+    submitted = st.form_submit_button("Add Space", type="primary")
 
     if submitted:
         if not building_options:
