@@ -27,7 +27,7 @@ def show_success_dialog(booking_id):
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("Return to Home", use_container_width=True):
+        if st.button("Return to Home", type="primary", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_booking_id = None
             st.switch_page("pages/00_Student_Home.py")
@@ -94,7 +94,7 @@ with st.form(f"new_booking_form_{st.session_state.form_key_counter}"):
         end_time = st.time_input("End Time *", value=datetime.time(10, 0))
 
 
-    submitted = st.form_submit_button("Create Booking")
+    submitted = st.form_submit_button("Create Booking", type="primary")
 
     if submitted:
         if not space_options:
