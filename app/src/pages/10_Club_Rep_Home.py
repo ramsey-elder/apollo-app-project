@@ -12,6 +12,12 @@ SideBarLinks()
 st.title(f"Welcome Club Representative, {st.session_state['first_name']}.")
 st.write('### What would you like to do today?')
 
+if st.button('Create a booking',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/17_New_Club_Booking.py')
+
+if st.button('View NGO Directory',
 if st.button('View Reservations',
              type='primary',
              use_container_width=True):
