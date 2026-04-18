@@ -9,11 +9,17 @@ SideBarLinks()
 
 st.title("Create New Booking")
 
-# Initialize session state
-if "show_success_modal" not in st.session_state:
-    st.session_state.show_success_modal = False
-if "success_booking_count" not in st.session_state:
-    st.session_state.success_booking_count = 0
+# Reset form whenever navigating to this page from another page
+if st.session_state.get("_last_page") != "17_club_booking":
+    st.session_state["_last_page"] = "17_club_booking"
+    st.session_state["cb_form_key"] = st.session_state.get("cb_form_key", -1) + 1
+
+if "cb_show_success_modal" not in st.session_state:
+    st.session_state.cb_show_success_modal = False
+if "cb_success_booking_count" not in st.session_state:
+    st.session_state.cb_success_booking_count = 0
+
+k = st.session_state["cb_form_key"]
 
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
@@ -84,14 +90,15 @@ def show_success_dialog(count):
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Return to Home", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_booking_count = 0
+        if st.button("Return to Home", type="primary", use_container_width=True):
+            st.session_state.cb_show_success_modal = False
+            st.session_state.cb_success_booking_count = 0
             st.switch_page("pages/10_Club_Rep_Home.py")
     with col2:
-        if st.button("Create Another Booking", use_container_width=True):
-            st.session_state.show_success_modal = False
-            st.session_state.success_booking_count = 0
+        if st.button("Create Another Booking", type="primary", use_container_width=True):
+            st.session_state.cb_show_success_modal = False
+            st.session_state.cb_success_booking_count = 0
+            st.session_state["cb_form_key"] += 1
             st.rerun()
 
 
@@ -130,28 +137,34 @@ BOOKINGS_API_URL = "http://web-api:4000/bookings"
 st.subheader("Booking Details")
 
 if space_options:
-    selected_space_name = st.selectbox("Space *", options=list(space_options.values()))
+    selected_space_name = st.selectbox(
+        "Space *", options=list(space_options.values()), key=f"cb_space_{k}"
+    )
 else:
-    selected_space_name = st.selectbox("Space *", options=[])
+    selected_space_name = st.selectbox("Space *", options=[], key=f"cb_space_{k}")
     st.caption("No spaces available.")
 
 col1, col2 = st.columns(2)
 with col1:
-    start_date = st.date_input("Start Date *", value=datetime.date.today())
-    start_time = st.time_input("Start Time *", value=datetime.time(9, 0))
+    start_date = st.date_input("Start Date *", value=datetime.date.today(), key=f"cb_start_date_{k}")
+    start_time = st.time_input("Start Time *", value=datetime.time(9, 0), key=f"cb_start_time_{k}")
 with col2:
-    end_date = st.date_input("End Date *", value=datetime.date.today())
-    end_time = st.time_input("End Time *", value=datetime.time(10, 0))
+    end_date = st.date_input("End Date *", value=datetime.date.today(), key=f"cb_end_date_{k}")
+    end_time = st.time_input("End Time *", value=datetime.time(10, 0), key=f"cb_end_time_{k}")
 
 if club_options:
-    selected_club_name = st.selectbox("Club *", options=list(club_options.values()))
+    selected_club_name = st.selectbox(
+        "Club *", options=list(club_options.values()), key=f"cb_club_{k}"
+    )
 else:
-    selected_club_name = st.selectbox("Club *", options=[])
+    selected_club_name = st.selectbox("Club *", options=[], key=f"cb_club_{k}")
     st.caption("No clubs available.")
 
 # ── Recurring Booking ──────────────────────────────────────────────────────────
+st.divider()
+st.subheader("Recurring Booking")
 
-is_recurring = st.checkbox("Make this a recurring booking")
+is_recurring = st.checkbox("Make this a recurring booking", key=f"cb_recurring_{k}")
 
 custom_every_n = 1
 custom_every_unit = "days"
@@ -162,6 +175,7 @@ if is_recurring:
     recurrence_frequency = st.selectbox(
         "Repeat",
         options=["Daily", "Weekly", "Monthly", "Custom"],
+        key=f"cb_frequency_{k}",
     )
 
     if recurrence_frequency == "Custom":
@@ -174,27 +188,32 @@ if is_recurring:
                 max_value=365,
                 value=1,
                 step=1,
+                key=f"cb_every_n_{k}",
             )
         with unit_col:
             custom_every_unit = st.selectbox(
                 "Unit",
                 options=["days", "weeks", "months"],
                 label_visibility="hidden",
+                key=f"cb_every_unit_{k}",
             )
         custom_weekdays = st.multiselect(
             "Repeat on (days of the week)",
             options=WEEKDAYS,
+            key=f"cb_weekdays_{k}",
         )
         st.caption("If days of the week are selected, the interval above is ignored.")
 
     recur_until = st.date_input(
         "Recurrence End Date",
         value=datetime.date.today() + datetime.timedelta(weeks=4),
+        key=f"cb_recur_until_{k}",
     )
 else:
     recurrence_frequency = "Daily"
 
 # ── Submit ─────────────────────────────────────────────────────────────────────
+st.divider()
 submitted = st.button("Create Booking", type="primary")
 
 if submitted:
@@ -247,13 +266,14 @@ if submitted:
                     failed += 1
 
             if created > 0:
-                st.session_state.show_success_modal = True
-                st.session_state.success_booking_count = created
+                st.session_state.cb_show_success_modal = True
+                st.session_state.cb_success_booking_count = created
                 if failed > 0:
                     st.warning(f"{failed} occurrence(s) could not be created.")
                 st.rerun()
             else:
                 st.error("Failed to create any bookings. Please try again.")
 
-if st.session_state.show_success_modal:
-    show_success_dialog(st.session_state.success_booking_count)
+if st.session_state.cb_show_success_modal:
+    st.session_state.cb_show_success_modal = False
+    show_success_dialog(st.session_state.cb_success_booking_count)
