@@ -53,6 +53,12 @@ def club_rep_home_nav():
     )
 
 
+def club_reservations_nav():
+    st.sidebar.page_link(
+        "pages/12_Club_Reservations.py", label="Club Reservations", icon="📋"
+    )
+
+
 def ngo_directory_nav():
     st.sidebar.page_link("pages/14_NGO_Directory.py", label="NGO Directory", icon="📁")
 
@@ -129,6 +135,7 @@ def SideBarLinks(show_home=False):
 
         if st.session_state["role"] == "club_rep":
             club_rep_home_nav()
+            club_reservations_nav()
             ngo_directory_nav()
             add_ngo_nav()
             prediction_nav()

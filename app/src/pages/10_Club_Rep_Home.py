@@ -15,7 +15,7 @@ st.write('### What would you like to do today?')
 if st.button('View Reservations',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/11_Club_Reservations.py')
+    st.switch_page('pages/12_Club_Reservations.py')
 
 if st.button('View Spaces',
              type='primary',
