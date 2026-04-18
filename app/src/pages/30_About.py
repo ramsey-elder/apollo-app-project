@@ -9,11 +9,11 @@ st.write("# About this App")
 
 st.markdown(
     """
-    This is a demo app for the CS3200 Intro to Database course at Northeastern University.
+    This is Apollo Booking, a campus space reservation platform developed for CS 3200 at Northeastern University.
 
-    The focus of this project is to demonstrate how to build a full-stack application that interacts with a MySQL database, using Streamlit for the frontend and Flask for the backend API.
+    The app demonstrates a full-stack data-driven application that centralizes facility booking across campus, using Streamlit for the frontend and Flask for the backend API, backed by a MySQL database. 
 
-    This project was developed by ___.
+    This project was developed by Team Rocket: Brandon Zau, Alayna Fu, Nicholas Lee, Ramsey Elder, and Michael Jia.
     """
 )
 

@@ -5,7 +5,6 @@ import logging
 
 from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
-from backend.ngos.ngo_routes import ngos
 from backend.users.users_routes import users
 from backend.bookings.bookings_routes import bookings
 from backend.spaces.spaces_routes import spaces
@@ -45,7 +44,6 @@ def create_app():
     # and give a url prefix to each.
     app.logger.info("create_app(): registering blueprints")
     app.register_blueprint(simple_routes)
-    app.register_blueprint(ngos, url_prefix="/ngo")
     app.register_blueprint(users, url_prefix="/users")
     app.register_blueprint(bookings, url_prefix="/bookings")
     app.register_blueprint(spaces, url_prefix="/spaces")
