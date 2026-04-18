@@ -4,12 +4,10 @@ from modules.nav import SideBarLinks
 
 st.set_page_config(layout='wide')
 
-# Initialize sidebar
 SideBarLinks()
 
 st.title("Space Directory")
 
-# API endpoints
 SPACES_URL = "http://web-api:4000/spaces"
 MANAGERS_URL = "http://web-api:4000/facility_managers"
 
@@ -24,7 +22,6 @@ try:
             for m in mgr_resp.json():
                 managers_by_building[m["building_id"]] = m
 
-        # Extract unique values for filter options
         space_types = sorted(set(s["space_type"] for s in spaces))
         buildings   = sorted(set(s["building_name"] for s in spaces if s.get("building_name")))
         sizes       = sorted(set(s["size"] for s in spaces if s.get("size")))
@@ -39,7 +36,6 @@ try:
             "camera": "Camera",
         }
 
-        # --- Filter row ---
         col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
             selected_type = st.selectbox("Space Type", ["All"] + space_types)
@@ -52,7 +48,6 @@ try:
         with col5:
             selected_amenities = st.multiselect("Accommodations", options=list(amenity_labels.values()))
 
-        # --- Search and action row ---
         search_col, button_col = st.columns([3, 1])
         with search_col:
             search_query = st.text_input("Search by Name or Space ID", placeholder="e.g. Study Room or 42")
@@ -60,7 +55,6 @@ try:
             st.markdown('<div style="height:27px"></div>', unsafe_allow_html=True)
             confirm_removal = st.button("Confirm Removal", type="primary", use_container_width=True)
 
-        # Handle removal when button is clicked
         if confirm_removal:
             selected_ids = [
                 s["space_id"] for s in spaces
@@ -80,7 +74,6 @@ try:
             else:
                 st.warning("No spaces selected for removal.")
 
-        # --- Apply filters ---
         filtered_spaces = spaces
 
         if selected_type != "All":
@@ -117,7 +110,6 @@ try:
                 or q == str(s["space_id"])
             ]
 
-        # --- Results ---
         st.write(f"Found {len(filtered_spaces)} Spaces")
 
         _, header_check_col = st.columns([0.85, 0.15])
@@ -128,7 +120,7 @@ try:
             content_col, check_col = st.columns([0.905, 0.095])
             with content_col:
                 with st.expander(f"{space['room_name']} ({space['space_type'].replace('_', ' ').title()})"):
-                    info_col, accommodations_col = st.columns(2)
+                    info_col, accommodations_col, edit_col = st.columns(3)
 
                     with info_col:
                         st.write("**Basic Information**")
@@ -168,6 +160,35 @@ try:
                                 st.write(f"{icon} {name}")
                         if not has_any:
                             st.write("No accommodation data available.")
+
+                    with edit_col:
+                        st.write("**Update Space**")
+                        with st.form(key=f"edit_space_{space['space_id']}"):
+                            new_name = st.text_input("Room Name", value=space["room_name"])
+                            perm_options = ["student_only", "club_only", "open", "faculty_only"]
+                            cur_perm = space.get("permissions", "open")
+                            new_permissions = st.selectbox(
+                                "Permissions",
+                                options=perm_options,
+                                index=perm_options.index(cur_perm) if cur_perm in perm_options else 0,
+                            )
+                            new_avail_start = st.text_input("Availability Start (HH:MM:SS)", value=str(avail_start))
+                            new_avail_end = st.text_input("Availability End (HH:MM:SS)", value=str(avail_end))
+                            if st.form_submit_button("Save Changes"):
+                                upd_resp = requests.put(
+                                    f"{SPACES_URL}/{space['space_id']}",
+                                    json={
+                                        "room_name": new_name,
+                                        "permissions": new_permissions,
+                                        "availability_start": new_avail_start,
+                                        "availability_end": new_avail_end,
+                                    },
+                                )
+                                if upd_resp.status_code == 200:
+                                    st.success("Space updated.")
+                                    st.rerun()
+                                else:
+                                    st.error("Failed to update space.")
 
             with check_col:
                 st.checkbox(

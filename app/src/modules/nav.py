@@ -33,6 +33,16 @@ def student_booking_nav():
         "pages/04_New_Student_Booking.py", label="Create Booking", icon="📅"
     )
 
+def student_reservations_nav():
+    st.sidebar.page_link(
+        "pages/05_My_Reservations.py", label="My Reservations", icon="📋"
+    )
+
+def spaces_nav():
+    st.sidebar.page_link(
+        "pages/11_Spaces.py", label="Browse Spaces", icon="🏢"
+    )
+
 
 
 # ---- Role: club_rep -----------------------------------------------------
@@ -54,6 +64,25 @@ def club_reservations_nav():
     )
 
 
+<<<<<<< HEAD
+=======
+
+def prediction_nav():
+    st.sidebar.page_link(
+        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
+    )
+
+
+def api_test_nav():
+    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
+
+
+def classification_nav():
+    st.sidebar.page_link(
+        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
+    )
+
+>>>>>>> 151f5ea (created data analyst pages)
 
 # ---- Role: data_analyst ----------------------------------------------------
 
@@ -77,6 +106,18 @@ def add_new_space_nav():
 
 def booking_directory_nav():
     st.sidebar.page_link("pages/25_Bookings_Directory.py", label="Booking Directory", icon="📅")
+
+def facility_managers_nav():
+    st.sidebar.page_link("pages/26_Facility_Managers.py", label="Facility Managers", icon="📞")
+
+def booking_analytics_nav():
+    st.sidebar.page_link("pages/41_Booking_Analytics.py", label="Booking Analytics", icon="📊")
+
+def building_usage_nav():
+    st.sidebar.page_link("pages/42_Building_Usage.py", label="Building Usage", icon="🏗️")
+
+def anomaly_report_nav():
+    st.sidebar.page_link("pages/43_Anomaly_Report.py", label="Anomaly Report", icon="⚠️")
 
 # ---- Sidebar assembly -------------------------------------------------------
 
@@ -102,23 +143,35 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "student":
             student_home_nav()
             student_booking_nav()
+            student_reservations_nav()
+            spaces_nav()
             help_ticket_nav()
 
         if st.session_state["role"] == "club_rep":
             club_rep_home_nav()
             club_booking_nav()
             club_reservations_nav()
+<<<<<<< HEAD
+=======
+            prediction_nav()
+            api_test_nav()
+            classification_nav()
+>>>>>>> 151f5ea (created data analyst pages)
             help_ticket_nav()
 
         if st.session_state["role"] == "data_analyst":
             data_analyst_home_nav()
+            booking_analytics_nav()
+            building_usage_nav()
+            anomaly_report_nav()
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()
+            booking_directory_nav()
             user_directory_nav()
             space_directory_nav()
             add_new_space_nav()
-            booking_directory_nav()
+            facility_managers_nav()
 
 
     # About link appears at the bottom for all roles
