@@ -22,15 +22,27 @@ def student_home_nav():
         "pages/00_Student_Home.py", label="Student Home", icon="👤"
     )
 
-
-def world_bank_viz_nav():
+def student_booking_nav():
     st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+        "pages/04_New_Booking.py", label="Create Booking", icon="📅"
+    )
+
+def student_help_ticket_nav():
+    st.sidebar.page_link(
+        "pages/03_New_Help_Ticket.py", label="Submit Help Ticket", icon="🆘"
     )
 
 
-def map_demo_nav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
+
+
+# def world_bank_viz_nav():
+#     st.sidebar.page_link(
+#         "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+#     )
+
+
+# def map_demo_nav():
+#     st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
 
 
 # ---- Role: club_rep -----------------------------------------------------
@@ -110,8 +122,10 @@ def SideBarLinks(show_home=False):
 
         if st.session_state["role"] == "student":
             student_home_nav()
-            world_bank_viz_nav()
-            map_demo_nav()
+            student_booking_nav()
+            student_help_ticket_nav()
+            # world_bank_viz_nav()
+            # map_demo_nav()
 
         if st.session_state["role"] == "club_rep":
             club_rep_home_nav()
