@@ -64,26 +64,6 @@ def club_reservations_nav():
     )
 
 
-<<<<<<< HEAD
-=======
-
-def prediction_nav():
-    st.sidebar.page_link(
-        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
-    )
-
-
-def api_test_nav():
-    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
-
-
-def classification_nav():
-    st.sidebar.page_link(
-        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
-    )
-
->>>>>>> 151f5ea (created data analyst pages)
-
 # ---- Role: data_analyst ----------------------------------------------------
 
 def data_analyst_home_nav():
@@ -151,12 +131,6 @@ def SideBarLinks(show_home=False):
             club_rep_home_nav()
             club_booking_nav()
             club_reservations_nav()
-<<<<<<< HEAD
-=======
-            prediction_nav()
-            api_test_nav()
-            classification_nav()
->>>>>>> 151f5ea (created data analyst pages)
             help_ticket_nav()
 
         if st.session_state["role"] == "data_analyst":
