@@ -161,8 +161,6 @@ else:
     st.caption("No clubs available.")
 
 # ── Recurring Booking ──────────────────────────────────────────────────────────
-st.divider()
-st.subheader("Recurring Booking")
 
 is_recurring = st.checkbox("Make this a recurring booking", key=f"cb_recurring_{k}")
 
@@ -213,7 +211,6 @@ else:
     recurrence_frequency = "Daily"
 
 # ── Submit ─────────────────────────────────────────────────────────────────────
-st.divider()
 submitted = st.button("Create Booking", type="primary")
 
 if submitted:
