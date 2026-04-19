@@ -20,7 +20,6 @@ def help_ticket_nav():
     )
 
 
-
 # ---- Role: student ------------------------------------------------
 
 def student_home_nav():
@@ -44,7 +43,6 @@ def spaces_nav():
     )
 
 
-
 # ---- Role: club_rep -----------------------------------------------------
 
 def club_rep_home_nav():
@@ -56,7 +54,6 @@ def club_booking_nav():
     st.sidebar.page_link(
         "pages/17_New_Club_Booking.py", label="Create Booking", icon="📅"
     )
-
 
 def club_reservations_nav():
     st.sidebar.page_link(
@@ -146,7 +143,6 @@ def SideBarLinks(show_home=False):
             space_directory_nav()
             add_new_space_nav()
             facility_managers_nav()
-
 
     # About link appears at the bottom for all roles
     about_page_nav()
