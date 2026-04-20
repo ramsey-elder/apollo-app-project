@@ -6,12 +6,11 @@ Apollo Booking is a campus space reservation and facilities management platform.
 
 ## Demo and Pitch Video
 
-[Watch the 6-8 minute demo and pitch on YouTube](https://youtu.be/Rm2vS2QEU_A)
+[Watch the demo and pitch on YouTube](https://youtu.be/k2extcHFPxw)
 
 ## Team Members
 
 - Brandon Zau
-- Eric Anthony El-Khouri Gerber
 - Michael Jia
 - Nicholas Lee
 - Alayna Fu
@@ -28,12 +27,6 @@ Apollo Booking supports four user roles. On the Streamlit landing page, a select
 | Administrator | [20_Admin_Home.py](app/src/pages/20_Admin_Home.py) | Manage users, spaces, bookings, and facility managers across the system. |
 | Data Analyst | [40_Data_Analyst_Home.py](app/src/pages/40_Data_Analyst_Home.py) | Review booking analytics, building usage, and anomaly reports. |
 
-## Tech Stack
-
-- **Database:** MySQL 9
-- **API:** Python 3.11 + Flask (REST, organized into Blueprints)
-- **Front end:** Streamlit
-- **Containerization:** Docker + Docker Compose
 
 ## Repository Layout
 
@@ -66,7 +59,7 @@ The API is split into eight Blueprints mounted under role- and resource-based UR
 | `facility_managers` | `/facility_managers` | [facility_managers_routes.py](api/backend/facility_managers/facility_managers_routes.py) |
 | `help_tickets` | `/help_tickets` | [help_tickets_routes.py](api/backend/help_tickets/help_tickets_routes.py) |
 
-All four HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`) are used across the API. Examples of mutating routes include `POST /users`, `PUT /users/<id>`, `DELETE /users/<id>`, `POST /bookings`, `PUT /bookings/<id>`, `DELETE /bookings/<id>`, `POST /spaces`, `PUT /spaces/<id>`, `DELETE /spaces/<id>`, and `POST /help_tickets`.
+All four HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`) are used across the API.
 
 ## Getting Started
 
@@ -135,5 +128,3 @@ docker compose down             # stop and remove the containers
 docker compose up db -d         # (re)start only the database
 docker compose down db -v && docker compose up db -d   # recreate db + re-run .sql files
 ```
-
-> **Heads-up:** MySQL only runs the files in `database-files/` when the container is *created*. If you edit the schema or mock data, you must recreate the db container (last command above) — a plain restart won't pick up the changes.
