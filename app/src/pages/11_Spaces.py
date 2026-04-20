@@ -11,18 +11,11 @@ st.title("Space Directory")
 
 # API endpoints
 SPACES_URL = "http://web-api:4000/spaces"
-MANAGERS_URL = "http://web-api:4000/facility_managers"
 
 try:
     response = requests.get(SPACES_URL)
     if response.status_code == 200:
         spaces = response.json()
-
-        managers_by_building = {}
-        mgr_resp = requests.get(MANAGERS_URL)
-        if mgr_resp.status_code == 200:
-            for m in mgr_resp.json():
-                managers_by_building[m["building_id"]] = m
 
         # Extract unique values for filter options
         space_types = sorted(set(s["space_type"] for s in spaces))
@@ -40,7 +33,7 @@ try:
         }
 
         # --- Filter row ---
-        col1, col2, col3, col4, col5 = st.columns(5)
+        col1, col2, col3, col4 = st.columns(4)
         with col1:
             selected_type = st.selectbox("Space Type", ["All"] + space_types)
         with col2:
@@ -49,36 +42,13 @@ try:
             selected_size = st.selectbox("Size", ["All"] + [s.replace("_", " ").title() for s in sizes])
         with col4:
             selected_permissions = st.selectbox("Permissions", ["All"] + [p.replace("_", " ").title() for p in permissions])
-        with col5:
-            selected_amenities = st.multiselect("Accommodations", options=list(amenity_labels.values()))
 
         # --- Search and action row ---
-        search_col, button_col = st.columns([3, 1])
+        search_col, col5 = st.columns([3, 1])
         with search_col:
             search_query = st.text_input("Search by Name or Space ID", placeholder="e.g. Study Room or 42")
-        with button_col:
-            st.markdown('<div style="height:27px"></div>', unsafe_allow_html=True)
-            confirm_removal = st.button("Confirm Removal", type="primary", use_container_width=True)
-
-        # Handle removal when button is clicked
-        if confirm_removal:
-            selected_ids = [
-                s["space_id"] for s in spaces
-                if st.session_state.get(f"select_{s['space_id']}", False)
-            ]
-            if selected_ids:
-                errors = []
-                for uid in selected_ids:
-                    del_resp = requests.delete(f"{SPACES_URL}/{uid}")
-                    if del_resp.status_code != 200:
-                        errors.append(uid)
-                if errors:
-                    st.error(f"Failed to remove space(s) with ID(s): {errors}")
-                else:
-                    st.success(f"Successfully removed {len(selected_ids)} space(s).")
-                st.rerun()
-            else:
-                st.warning("No spaces selected for removal.")
+        with col5:
+            selected_amenities = st.multiselect("Accommodations", options=list(amenity_labels.values()))
 
         # --- Apply filters ---
         filtered_spaces = spaces
@@ -120,12 +90,8 @@ try:
         # --- Results ---
         st.write(f"Found {len(filtered_spaces)} Spaces")
 
-        _, header_check_col = st.columns([0.85, 0.15])
-        with header_check_col:
-            st.markdown("**Remove Space**")
-
         for space in filtered_spaces:
-            content_col, check_col = st.columns([0.905, 0.095])
+            content_col, __ = st.columns([0.905, 0.095])
             with content_col:
                 with st.expander(f"{space['room_name']} ({space['space_type'].replace('_', ' ').title()})"):
                     info_col, accommodations_col = st.columns(2)
@@ -141,14 +107,6 @@ try:
                         avail_end = space.get('availability_end', 'N/A')
                         st.write(f"**Available:** {avail_start} – {avail_end}")
                         st.write("")
-                        st.write("**Facility Manager**")
-                        manager = managers_by_building.get(space["building_id"])
-                        if manager:
-                            st.write(f"**Name:** {manager['f_name']} {manager['l_name']}")
-                            st.write(f"**Email:** {manager.get('email', 'N/A')}")
-                            st.write(f"**Phone:** {manager.get('phone') or 'N/A'}")
-                        else:
-                            st.write("No facility manager on record.")
 
                     with accommodations_col:
                         st.write("**Accommodations**")
@@ -168,13 +126,6 @@ try:
                                 st.write(f"{icon} {name}")
                         if not has_any:
                             st.write("No accommodation data available.")
-
-            with check_col:
-                st.checkbox(
-                    "",
-                    key=f"select_{space['space_id']}",
-                    label_visibility="collapsed",
-                )
 
     else:
         st.error("Failed to fetch space data from the API")
