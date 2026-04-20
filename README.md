@@ -137,10 +137,3 @@ docker compose down db -v && docker compose up db -d   # recreate db + re-run .s
 ```
 
 > **Heads-up:** MySQL only runs the files in `database-files/` when the container is *created*. If you edit the schema or mock data, you must recreate the db container (last command above) — a plain restart won't pick up the changes.
-
-## Development Notes
-
-- Code changes under `api/` and `app/src/` are hot-reloaded inside the containers — no rebuild required for day-to-day edits. If the API or app crashes, fix the error and restart that container from Docker Desktop or with `docker compose restart`.
-- Streamlit pages are organized by role prefix: `0*` = student, `1*` = club rep, `2*` = admin, `3*` = shared (e.g. About), `4*` = data analyst.
-- Role-based access control is handled in [app/src/modules/nav.py](app/src/modules/nav.py) based on `st.session_state['role']`; no real auth is implemented.
-- API logs are available via `docker compose logs -f api`; database logs the same way with `db`.
