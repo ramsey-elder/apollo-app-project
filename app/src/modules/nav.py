@@ -66,6 +66,15 @@ def club_reservations_nav():
 def data_analyst_home_nav():
     st.sidebar.page_link("pages/40_Data_Analyst_Home.py", label="Data Analyst Home", icon="🖥️")
 
+def booking_analytics_nav():
+    st.sidebar.page_link("pages/41_Booking_Analytics.py", label="Booking Analytics", icon="📊")
+
+def building_usage_nav():
+    st.sidebar.page_link("pages/42_Building_Usage.py", label="Building Usage", icon="🏗️")
+
+def anomaly_report_nav():
+    st.sidebar.page_link("pages/43_Anomaly_Report.py", label="Anomaly Report", icon="⚠️")
+
 
 # ---- Role: administrator ----------------------------------------------------
 
@@ -86,15 +95,6 @@ def booking_directory_nav():
 
 def facility_managers_nav():
     st.sidebar.page_link("pages/26_Facility_Managers.py", label="Facility Managers", icon="📞")
-
-def booking_analytics_nav():
-    st.sidebar.page_link("pages/41_Booking_Analytics.py", label="Booking Analytics", icon="📊")
-
-def building_usage_nav():
-    st.sidebar.page_link("pages/42_Building_Usage.py", label="Building Usage", icon="🏗️")
-
-def anomaly_report_nav():
-    st.sidebar.page_link("pages/43_Anomaly_Report.py", label="Anomaly Report", icon="⚠️")
 
 # ---- Sidebar assembly -------------------------------------------------------
 
